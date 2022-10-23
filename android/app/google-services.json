@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1076028654224",
+    "project_id": "concord-6cea2",
+    "storage_bucket": "concord-6cea2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076028654224:android:d88642c262f68a10104e15",
+        "android_client_info": {
+          "package_name": "technikaily.concord"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076028654224-jktg7jgim3cnqt735ja0dti0nk7fq6s9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAPMi0YrZKUpEQd-qPAwdYpwk2iFEVryc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076028654224-jktg7jgim3cnqt735ja0dti0nk7fq6s9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
