@@ -7,15 +7,21 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // create user obj based on FirebaseUser
-  UserObject? _userFromFirebaseUser(User? user){
-    return user != null ? UserObject(uid: user.uid) : null;
+   UserObject? _userFromFirebaseUser(User? user){
+   return user != null ? UserObject(uid: user.uid) : null;
   }
 
   // auth change user stream
   Stream<UserObject?> get user => _auth.authStateChanges().map(_userFromFirebaseUser);
 
-  Future? registerWithEmail(String email, String password) async {
+  Future? registerWithEmail(String email, String password, String username, String photoUrl) async {
     try {
+
+      // TODO: Check if username is already used
+      if (await DataBaseService().userExists(username)){
+        return 'Username already in use';
+      }
+
       final credential = await _auth.createUserWithEmailAndPassword(
           email: email,
           password: password
@@ -23,7 +29,8 @@ class AuthService {
       User? user = credential.user;
 
       // create a new document for the user with the uid
-      await DataBaseService(uid: user!.uid).updateUserData('Baka');
+      await DataBaseService(uid: user!.uid).updateUserData(username, photoUrl);
+
       return _userFromFirebaseUser(user);
 
     } on FirebaseAuthException catch(e) {
@@ -48,6 +55,7 @@ class AuthService {
       User? user = credential.user;
 
       return _userFromFirebaseUser(user);
+      //return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return 'No user found for that email.';

@@ -20,6 +20,9 @@ class _RegisterState extends State<Register> {
   // text field state
   String email = '';
   String password = '';
+  String username = '';
+  String photoUrl = '';
+
   String error = '';
   bool _obscureText = true;
 
@@ -61,6 +64,23 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                       TextFormField(
+                        validator: (val) {
+                          if (val!.length > 32) return 'Maximum of 32 characters';
+                          return val.isEmpty ? 'Username is required' : null;
+                        },
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: "Username",
+                          fillColor: Color(0xFFE0B1CB),
+                        ),
+                        onChanged: (val){
+                          setState(() =>
+                          username = val
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 20.0),
+                      TextFormField(
                         validator: (val) => val!.isEmpty ? 'Email is required' : null,
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Icons.email),
@@ -98,7 +118,7 @@ class _RegisterState extends State<Register> {
                           );
                         },
                       ),
-                      const SizedBox(height: 20.0,),
+                      const SizedBox(height: 20.0),
                       Text(
                         error,
                         style: const TextStyle(
@@ -115,10 +135,16 @@ class _RegisterState extends State<Register> {
                           ),
                           onPressed: () async {
                             if (_formKey.currentState!.validate()){
-                              setState(() => loading = true);
-                              dynamic result = await _auth.registerWithEmail(email, password);
 
-                              if (result == 'Email already in use'){
+                              setState(() => loading = true);
+                              dynamic result = await _auth.registerWithEmail(email, password, username, photoUrl);
+
+                              if (result == 'Username already in use') {
+                                setState(() {
+                                  error = 'Username already in use';
+                                  loading = false;
+                                });
+                              } else if (result == 'Email already in use'){
                                 setState(() {
                                   error = 'Email already in use';
                                   loading = false;
