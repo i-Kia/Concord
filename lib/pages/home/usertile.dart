@@ -12,14 +12,25 @@ class UserTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Card(
+        color: const Color(0xFF231942),
         margin: const EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
         child: ListTile(
           leading: CircleAvatar(
             radius: 25.0,
             backgroundColor: Colors.black,
           ),
-          title: Text(user.username),
-          subtitle: Text("The last message they sent"),
+          title: Text(
+            user.username,
+            style: const TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          subtitle: Text(
+            "Last message they sent",
+            style: const TextStyle(
+              color: Colors.white38,
+            ),
+          ),
         ),
       ),
     );

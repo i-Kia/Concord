@@ -15,9 +15,9 @@ class _DirectMessagesListState extends State<DirectMessagesList> {
   Widget build(BuildContext context) {
 
     final users = Provider.of<List<ConcordUser>>(context);
-    for (var user in users) {
-      print(user);
-    }
+    //for (var user in users) {
+    //  print(user);
+    //}
 
     return Container(
       color: const Color(0xFF322957),
